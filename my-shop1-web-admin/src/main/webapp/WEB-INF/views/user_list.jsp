@@ -43,6 +43,39 @@
                             <li class="breadcrumb-item active">控制面板</li>
                         </ol>
                     </div><!-- /.col -->
+
+
+                    <!--搜索-->
+                    <div class="row">
+                        <form:form id="inputForm" cssClass="form-horizontal" action="/user/search" method="post" modelAttribute="tbUser">
+                            <div class="card-body row">
+                                <div class="col-xs-3" style="padding-left: 10px">
+                                    <div class="form-group">
+                                        <label for="email" class="control-label">邮箱</label>
+                                        <form:input path="email"  cssClass="form-control" placeholder="请输入邮箱" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-3" style="padding-left: 10px">
+                                    <div class="form-group">
+                                        <label for="username" class="control-label">姓名</label>
+                                        <form:input path="username" type="text" cssClass="form-control" placeholder="请输入用户的姓名" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-3" style="padding-left: 10px">
+                                    <div class="form-group">
+                                        <label for="phone" class="control-label">手机</label>
+                                        <form:input path="phone" type="phone" cssClass="form-control mobile" placeholder="请输入用户的手机号" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group" style="padding-left: 10px">
+                                <button type="submit" class="btn btn-info">搜索</button>
+                            </div>
+                        </form:form>
+                    </div>
+
+
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -56,7 +89,7 @@
                     <div class="col-12">
                         <%--判断添加成功--%>
                         <c:if test="${baseResult!=null}">
-                            <div class="alert alert-${baseResult.status==200? " success":"danger"} alert-dismissible">
+                            <div class="alert alert-${baseResult.status==200? "success":"danger"} alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                     ${baseResult.message}
                             </div>
@@ -65,9 +98,8 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">用户列表</h3>
-
                             </div>
-                            <div class="row" style="padding-left: 12px;padding-top: 10px;">
+                            <div class="card-body" style="padding-left: 12px;padding-top: 10px;padding-bottom: 0px">
                                 <a href="/user/form" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
                                 <button onclick="App.deleteMulti('/user/delete')" type="button" class="btn btn-default btn-sm"><i class="fa fa-trash"></i>删除</button>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-download"></i>导入</a>&nbsp;&nbsp;&nbsp;
@@ -76,39 +108,9 @@
 
 
 
-                            <!--搜索-->
-                            <div class="row">
-                                <form:form id="inputForm" cssClass="form-horizontal" action="/user/search" method="post" modelAttribute="tbUser">
-                                    <div class="card-body row">
-                                        <div class="col-xs-3" style="padding-left: 10px">
-                                            <div class="form-group">
-                                                <label for="email" class="control-label">邮箱</label>
-                                                <form:input path="email"  cssClass="form-control" placeholder="请输入邮箱" />
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3" style="padding-left: 10px">
-                                            <div class="form-group">
-                                                <label for="username" class="control-label">姓名</label>
-                                                <form:input path="username" type="text" cssClass="form-control" placeholder="请输入用户的姓名" />
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-3" style="padding-left: 10px">
-                                            <div class="form-group">
-                                                <label for="phone" class="control-label">手机</label>
-                                                <form:input path="phone" type="phone" cssClass="form-control mobile" placeholder="请输入用户的手机号" />
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group" style="padding-left: 10px">
-                                        <button type="submit" class="btn btn-info">搜索</button>
-                                    </div>
-                                </form:form>
-                            </div>
-
                             <!-- /.card-header -->
-                            <div class="card-body table-responsive p-0">
-                                <table class="table table-hover text-nowrap">
+                            <div class="card-body table-responsive">
+                                <table id="dataTable" class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
                                         <th>
@@ -127,29 +129,29 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${tbUsers}" var="tbuser">
-                                        <tr>
-                                            <td>
-                                                <div class="icheck-primary d-inline">
-                                                    <input type="checkbox" class="check-box" id="${tbuser.id}">
-                                                    <label for="${tbuser.id}">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>${tbuser.id}</td>
-                                            <td>${tbuser.username}</td>
-                                            <td>${tbuser.phone}</td>
-                                            <td>${tbuser.email}</td>
-                                            <td>
-                                                <fmt:formatDate value="${tbuser.updated}" pattern="yyyy-MM-dd HH:mm:ss" />
-                                            </td>
-                                            <td>
-                                                <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-search"></i>查看</a>
-                                                <a href="#" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>修改</a>
-                                                <a href="#" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+<%--                                    <c:forEach items="${tbUsers}" var="tbuser">--%>
+<%--                                        <tr>--%>
+<%--                                            <td>--%>
+<%--                                                <div class="icheck-primary d-inline">--%>
+<%--                                                    <input type="checkbox" class="check-box" id="${tbuser.id}">--%>
+<%--                                                    <label for="${tbuser.id}">--%>
+<%--                                                    </label>--%>
+<%--                                                </div>--%>
+<%--                                            </td>--%>
+<%--                                            <td>${tbuser.id}</td>--%>
+<%--                                            <td>${tbuser.username}</td>--%>
+<%--                                            <td>${tbuser.phone}</td>--%>
+<%--                                            <td>${tbuser.email}</td>--%>
+<%--                                            <td>--%>
+<%--                                                <fmt:formatDate value="${tbuser.updated}" pattern="yyyy-MM-dd HH:mm:ss" />--%>
+<%--                                            </td>--%>
+<%--                                            <td>--%>
+<%--                                                <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-search"></i>查看</a>--%>
+<%--                                                <a href="#" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>修改</a>--%>
+<%--                                                <a href="#" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>--%>
+<%--                                            </td>--%>
+<%--                                        </tr>--%>
+<%--                                    </c:forEach>--%>
 
 
                                     </tbody>
@@ -182,5 +184,33 @@
 <!--自定义模态框 -->
 <jsp:include page="../includes/footer.jsp" />
 <sys:modal/>
+<script>
+    $(function () {
+        const _columns = [
+            {
+                "data": function (row, type, val, meta) {
+                    return '<div class="icheck-primary d-inline">\n' +
+                        '\t<input type="checkbox" class="check-box" id="' + row.id + '">\n' +
+                        '\t<label for="' + row.id + '"></label>\n' +
+                        '</div>';
+                }
+            },
+            {"data": "id"},
+            {"data": "username"},
+            {"data": "phone"},
+            {"data": "email"},
+            {"data": "updated"},
+            {
+                "data": function (row, type, val, meta) {
+                    const detailUrl = "/user/detail?id=" + row.id;
+                    return '<button type="button" onclick="App.showDetail(\''+detailUrl+'\')" class="btn btn-default btn-sm"><i class="fa fa-search"></i>查看</button>\n' +
+                        '<a href="/user/form?id=' + row.id + '" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>修改</a>\n' +
+                        '<a href="#" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
+                }
+            }
+        ];
+        App.initDataTables("/user/page",_columns);
+    });
+</script>
 </body>
 </html>

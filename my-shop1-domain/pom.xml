@@ -16,4 +16,12 @@
     <name>my-shop1-domain</name>
     <description></description>
 
+    <dependencies>
+        <dependency>
+            <groupId>top.atpisher</groupId>
+            <artifactId>my-shop1-commons</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>

@@ -1,6 +1,7 @@
 package top.atpisher.my.shop1.web.admin.service;
 
 import top.atpisher.my.shop1.commons.dto.BaseResult;
+import top.atpisher.my.shop1.commons.dto.PageInfo;
 import top.atpisher.my.shop1.domain.TbUser;
 
 import java.util.List;
@@ -59,4 +60,18 @@ public interface TbUserService {
      * @param ids
      */
     void deleteUsersById(String[] ids);
+
+    /**
+     * 分页查询
+     * @param start
+     * @param length
+     * @return
+     */
+    PageInfo<TbUser> page(int start, int length,int draw);
+
+    /**
+     * 查询记录总条数
+     * @return
+     */
+    int count();
 }

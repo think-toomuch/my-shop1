@@ -11,6 +11,8 @@ const App = function () {
     const handlerInitCheckbox = function () {
         //获取控制全选按钮
         master = $('input[type="checkbox"]#checkboxMaster');
+        //分页时刷新更改为初始化状态
+        master.prop("checked",false);
         //获取全部checkbox集合
         allcheck = $('input[type="checkbox"].check-box');
     };
@@ -84,7 +86,7 @@ const App = function () {
                                 $("#btnModalOk").bind("click",function () {
                                 $("#modal-default").modal("hide");
                                 });
-
+                                
                                 $("#modal-message").html(data.message);
                                 $("#modal-default").modal("show");
 
@@ -96,7 +98,78 @@ const App = function () {
             }
         }
     };
-
+    /**
+     * 初始化DataTables
+     */
+    const handlerInitDataTables = function (url,columns) {
+        $('#dataTable').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "processing": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "serverSide": true,
+            "deferRender": true,
+            "ajax": {
+                "url": url
+            },
+            "columns": columns,
+            "language":{
+                "processing": "处理中...",
+                "lengthMenu": "显示 _MENU_ 项结果",
+                "zeroRecords": "没有匹配结果",
+                "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "infoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "infoFiltered": "(由 _MAX_ 项结果过滤)",
+                "infoPostFix": "",
+                "search": "搜索:",
+                "searchPlaceholder": "搜索...",
+                "url": "",
+                "emptyTable": "表中数据为空",
+                "loadingRecords": "载入中...",
+                "infoThousands": ",",
+                "paginate": {
+                    "first": "首页",
+                    "previous": "上页",
+                    "next": "下页",
+                    "last": "末页"
+                },
+                "aria": {
+                    "paginate": {
+                        "first": "首页",
+                        "previous": "上页",
+                        "next": "下页",
+                        "last": "末页"
+                    },
+                    "sortAscending": "以升序排列此列",
+                    "sortDescending": "以降序排列此列"
+                },
+                "thousands": "."
+            },
+            "drawCallback": function( settings ) {
+                handlerInitCheckbox();
+                handlerCheckboxAll();
+            }
+        });
+    };
+    /**
+     * 查看详情
+     * @param url
+     */
+    const handlerShowHandler = function (url) {
+        $.ajax({
+            url: url,
+            type: "get",
+            datatype: "html",
+            success: function (data) {
+                $("#modal-detail-body").html(data);
+                $("#modal-detail").modal("show");
+            }
+        });
+    };
     return{
         init:function () {
             handlerInitCheckbox();
@@ -107,6 +180,12 @@ const App = function () {
         },
         deleteMulti:function (url) {
             handleerDeleteMulti(url);
+        },
+        initDataTables:function (url,columns) {
+            handlerInitDataTables(url,columns);
+        },
+        showDetail:function (url) {
+            handlerShowHandler(url);
         }
     }
 }();

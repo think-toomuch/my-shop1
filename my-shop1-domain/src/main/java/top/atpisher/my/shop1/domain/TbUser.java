@@ -1,5 +1,7 @@
 package top.atpisher.my.shop1.domain;
 
+import top.atpisher.my.shop1.commons.persistence.BaseEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,22 +11,11 @@ import java.util.Date;
  * @Date: 2021/4/3 22:09
  * @Description: TODO
  */
-public class TbUser implements Serializable {
-    private Long id;
+public class TbUser extends BaseEntity {
     private String username;
     private String password;
     private String phone;
     private String email;
-    private Date created;
-    private Date updated;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -58,32 +49,13 @@ public class TbUser implements Serializable {
         this.email = email;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
     @Override
     public String toString() {
         return "TbUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", created=" + created +
-                ", updated=" + updated +
                 '}';
     }
 }

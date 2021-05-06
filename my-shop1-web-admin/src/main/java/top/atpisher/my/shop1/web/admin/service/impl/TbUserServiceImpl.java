@@ -5,13 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import top.atpisher.my.shop1.commons.dto.BaseResult;
+import top.atpisher.my.shop1.commons.dto.PageInfo;
 import top.atpisher.my.shop1.commons.utils.RegexpUtils;
 import top.atpisher.my.shop1.domain.TbUser;
 import top.atpisher.my.shop1.web.admin.dao.TbUserDao;
 import top.atpisher.my.shop1.web.admin.service.TbUserService;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName: TbUserServiceImpl
@@ -108,6 +111,28 @@ public class TbUserServiceImpl implements TbUserService {
     @Override
     public void deleteUsersById(String[] ids) {
         tbUserDao.deleteUsersById(ids);
+    }
+
+    @Override
+    public PageInfo<TbUser> page(int start, int length,int draw) {
+        int count=tbUserDao.count();
+
+        Map<String,Object> parms=new HashMap<>();
+        parms.put("start",start);
+        parms.put("length",length);
+
+        PageInfo<TbUser> pageInfo=new PageInfo<>();
+        pageInfo.setDraw(draw);
+        pageInfo.setRecordsTotal(count);
+        pageInfo.setRecordsFiltered(count);
+        pageInfo.setData(tbUserDao.page(parms));
+
+        return pageInfo;
+    }
+
+    @Override
+    public int count() {
+        return tbUserDao.count();
     }
 
     /**

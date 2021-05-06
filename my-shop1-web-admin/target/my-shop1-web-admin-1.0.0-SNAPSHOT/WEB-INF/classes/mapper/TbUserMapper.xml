@@ -91,7 +91,10 @@
         </where>
     </select>
 
-<!--    根据id删除用户-->
+    <select id="getById" resultType="TbUser" parameterType="java.lang.Long">
+        select * from tb_user where id=#{id}
+    </select>
+<!--    根据id删除多个用户-->
     <delete id="deleteUsersById">
         delete from tb_user
         where id in
@@ -99,4 +102,15 @@
             #{id}
         </foreach>
     </delete>
+<!--分页查询指定条数-->
+    <select id="page" resultType="TbUser" parameterType="java.util.Map">
+        SELECT
+        <include refid="tbUserColumns"/>
+        FROM
+        tb_user AS a LIMIT #{start},#{length}
+    </select>
+<!--    查询总数-->
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM tb_user;
+    </select>
 </mapper>

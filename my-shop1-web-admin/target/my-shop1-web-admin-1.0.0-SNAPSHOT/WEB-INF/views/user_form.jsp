@@ -59,19 +59,8 @@
 
                 <!-- Horizontal Form -->
                 <div class="card card-info">
-                    <%--提交之后提示信息--%>
-                    <c:if test="${baseResult!=null}">
-                        <div class="alert alert-${baseResult.status==200? "success":"danger"} alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                ${baseResult.message}
-                        </div>
-                    </c:if>
-
 
                     <div class="card-header">
-
-
-
                         <h3 class="card-title">${tbUser.id==null?"新增":"编辑"}用户</h3>
                     </div>
                     <!-- /.card-header -->
