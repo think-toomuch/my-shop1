@@ -26,34 +26,51 @@ import java.util.Map;
 public class TbUserServiceImpl implements TbUserService {
     @Autowired
     private TbUserDao tbUserDao;
+
+    /**
+     * 查询全部用户信息
+     * @return
+     */
     @Override
     public List<TbUser> selectAll() {
         return tbUserDao.selectAll();
     }
 
+    /**
+     * 插入一条用户信息
+     * @param tbUser
+     */
     @Override
     public void insert(TbUser tbUser) {
         tbUserDao.insert(tbUser);
     }
 
+    /**
+     * 根据id删除一条用户信息
+     * @param id
+     */
     @Override
     public void delete(Long id) {
         tbUserDao.delete(id);
     }
 
+    /**
+     * 根据id获取一条用户信息
+     * @param id
+     * @return
+     */
     @Override
     public TbUser getById(Long id) {
         return tbUserDao.getById(id);
     }
 
+    /**
+     * 更新一条用户信息
+     * @param tbUser
+     */
     @Override
     public void update(TbUser tbUser) {
         tbUserDao.update(tbUser);
-    }
-
-    @Override
-    public List<TbUser> selectByUsername(String username) {
-        return tbUserDao.selectByUsername(username);
     }
 
     /**
@@ -103,23 +120,31 @@ public class TbUserServiceImpl implements TbUserService {
         return baseResult;
     }
 
-    @Override
-    public List<TbUser> search(TbUser tbUser) {
-        return tbUserDao.search(tbUser);
-    }
-
+    /**
+     * 根据id批量删除
+     * @param ids
+     */
     @Override
     public void deleteUsersById(String[] ids) {
         tbUserDao.deleteUsersById(ids);
     }
 
+    /**
+     * 分页查询
+     * @param start
+     * @param length
+     * @param draw
+     * @param tbUser
+     * @return
+     */
     @Override
-    public PageInfo<TbUser> page(int start, int length,int draw) {
-        int count=tbUserDao.count();
+    public PageInfo<TbUser> page(int start, int length,int draw,TbUser tbUser) {
+        int count=tbUserDao.count(tbUser);
 
         Map<String,Object> parms=new HashMap<>();
         parms.put("start",start);
         parms.put("length",length);
+        parms.put("tbUser",tbUser);
 
         PageInfo<TbUser> pageInfo=new PageInfo<>();
         pageInfo.setDraw(draw);
@@ -130,9 +155,14 @@ public class TbUserServiceImpl implements TbUserService {
         return pageInfo;
     }
 
+    /**
+     * 分页总条数
+     * @param tbUser
+     * @return
+     */
     @Override
-    public int count() {
-        return tbUserDao.count();
+    public int count(TbUser tbUser) {
+        return tbUserDao.count(tbUser);
     }
 
     /**

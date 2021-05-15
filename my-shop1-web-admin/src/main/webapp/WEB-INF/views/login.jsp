@@ -5,13 +5,13 @@
   Time: 12:54
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>我的商城 | 登录</title>
+    <title>我的 | 登录</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../static/assets/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
@@ -22,7 +22,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <b>我的商城</b>登录
+        <b>我的</b>登录
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -32,9 +32,9 @@
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h5><i class="icon fas fa-ban"></i> ${message}</h5>
             </div>
-            <form action="/login" method="post">
+            <form action="${pageContext.request.contextPath}/login" method="post">
                 <div class="input-group mb-3">
-                    <input name="email" type="email" class="form-control" placeholder="电子邮件" value="${email}">
+                    <input name="email" type="email" class="form-control" placeholder="电子邮件">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input name="passwd" type="password" class="form-control" placeholder="密码" value="${passwd}">
+                    <input name="passwd" type="password" class="form-control" placeholder="密码">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -50,16 +50,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember" name="isRemember" ${isRemember==true ? "checked":""}>
-                            <label for="remember">
-                                记住我
-                            </label>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-4">
+                    <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-block">登录</button>
                     </div>
                     <!-- /.col -->

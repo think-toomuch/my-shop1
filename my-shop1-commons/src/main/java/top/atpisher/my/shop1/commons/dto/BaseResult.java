@@ -33,6 +33,7 @@ public class BaseResult implements Serializable {
     public static BaseResult fail(){
         return createResult(STATUS_FILE, "失败");
     }
+    //自定义错误信息
     public static BaseResult fail(String message){
         return createResult(STATUS_FILE, message);
     }

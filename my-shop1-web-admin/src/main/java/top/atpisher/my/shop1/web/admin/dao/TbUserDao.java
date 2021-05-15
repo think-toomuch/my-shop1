@@ -25,7 +25,7 @@ public interface TbUserDao {
      */
     void insert(TbUser tbUser);
     /**
-     *  根据id删除
+     *  根据id删除用户
      * @param id
      */
     void delete(Long id);
@@ -44,25 +44,12 @@ public interface TbUserDao {
     void update(TbUser tbUser);
 
     /**
-     * 模糊查询用户名
-     * @param username
-     * @return
-     */
-    List<TbUser> selectByUsername(String username);
-
-    /**
      * 根据email查询用户信息
      * @param email
      * @return
      */
     TbUser getByEmail(String email);
 
-    /**
-     * 搜索
-     * @param tbUser
-     * @return
-     */
-    List<TbUser> search(TbUser tbUser);
 
     /**
      * 批量删除
@@ -81,5 +68,5 @@ public interface TbUserDao {
      * 查询总条数
      * @return
      */
-    int count();
+    int count(TbUser tbUser);
 }

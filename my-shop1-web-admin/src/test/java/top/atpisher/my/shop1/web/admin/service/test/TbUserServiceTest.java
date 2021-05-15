@@ -42,10 +42,10 @@ public class TbUserServiceTest {
     @Test
     public void testInsert() {
         TbUser tbUser = new TbUser();
-        tbUser.setEmail("admin@admin.com");
+        tbUser.setEmail("admin@qq.com");
         tbUser.setPassword(DigestUtils.md5DigestAsHex("admin".getBytes()));
-        tbUser.setPhone("15888888888");
-        tbUser.setUsername("Lusifer1");
+        tbUser.setPhone("15888888000");
+        tbUser.setUsername("Lusife");
         tbUser.setCreated(new Date());
         tbUser.setUpdated(new Date());
 
@@ -71,30 +71,10 @@ public class TbUserServiceTest {
         tbUser.setUsername("Lusifer666");
         tbUserService.update(tbUser);
     }
-    @Test
-    public void testSelectByName() {
-        List<TbUser> tbUsers = tbUserService.selectByUsername("uni");
-        for (TbUser tbUser : tbUsers) {
-            System.out.println(tbUser.getUsername());
-        }
-    }
 
-    @Test
-    public void TestGetByEmail(){
-        TbUser tbUser=tbUserService.login("admin@qq","123456");
-            System.out.println(tbUser.getUsername());
-    }
     @Test
     public void testMd5(){
         System.out.println(DigestUtils.md5DigestAsHex("123456".getBytes()));
     }
-    @Test
-    public void testSearch(){
-        TbUser tbUser=new TbUser();
-        tbUser.setUsername("test");
-        List<TbUser> lists=tbUserDao.search(tbUser);
-        for(TbUser tbUser1:lists){
-            System.out.println(tbUser1.getUsername());
-        }
-    }
+
 }

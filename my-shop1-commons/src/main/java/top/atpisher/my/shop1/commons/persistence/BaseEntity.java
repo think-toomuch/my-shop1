@@ -1,5 +1,7 @@
 package top.atpisher.my.shop1.commons.persistence;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,7 +23,7 @@ public abstract class BaseEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getCreated() {
         return created;
     }
@@ -29,7 +31,7 @@ public abstract class BaseEntity implements Serializable {
     public void setCreated(Date created) {
         this.created = created;
     }
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getUpdated() {
         return updated;
     }

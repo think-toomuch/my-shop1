@@ -5,7 +5,7 @@
   Time: 16:26
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -44,42 +44,59 @@
                         </ol>
                     </div><!-- /.col -->
 
-
-                    <!--搜索-->
-                    <div class="row">
-                        <form:form id="inputForm" cssClass="form-horizontal" action="/user/search" method="post" modelAttribute="tbUser">
-                            <div class="card-body row">
-                                <div class="col-xs-3" style="padding-left: 10px">
-                                    <div class="form-group">
-                                        <label for="email" class="control-label">邮箱</label>
-                                        <form:input path="email"  cssClass="form-control" placeholder="请输入邮箱" />
-                                    </div>
-                                </div>
-                                <div class="col-xs-3" style="padding-left: 10px">
-                                    <div class="form-group">
-                                        <label for="username" class="control-label">姓名</label>
-                                        <form:input path="username" type="text" cssClass="form-control" placeholder="请输入用户的姓名" />
-                                    </div>
-                                </div>
-                                <div class="col-xs-3" style="padding-left: 10px">
-                                    <div class="form-group">
-                                        <label for="phone" class="control-label">手机</label>
-                                        <form:input path="phone" type="phone" cssClass="form-control mobile" placeholder="请输入用户的手机号" />
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="form-group" style="padding-left: 10px">
-                                <button type="submit" class="btn btn-info">搜索</button>
-                            </div>
-                        </form:form>
-                    </div>
-
-
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
+
+<%--        搜索--%>
+        <!-- Horizontal Form -->
+        <div class="content content-search" style="display:none;">
+            <div class="container-fluid">
+                <div class="card card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">高级搜索</h3>
+                    </div>
+                    <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row form-horizontal">
+                                <div class="col-xs-12 col-sm-3">
+                                    <div class="form-group row">
+                                        <label for="email" class="col-sm-2 col-form-label">邮箱</label>
+                                        <div class="col-sm-10">
+                                            <input id="email" class="form-control" placeholder="请输入邮箱">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3">
+                                    <div class="form-group row">
+                                        <label for="username" class="col-sm-2 col-form-label">姓名</label>
+                                        <div class="col-sm-10">
+                                            <input id="username" type="text" class="form-control" placeholder="请输入用户的姓名">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3">
+                                    <div class="form-group row">
+                                        <label for="phone" class="col-sm-2 col-form-label">手机</label>
+                                        <div class="col-sm-10">
+                                            <input id="phone" class="form-control" placeholder="请输入用户的手机号">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="button" onclick="search();" class="btn btn-info float-right">搜索</button>
+                        </div>
+                        <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+
 
         <!-- Main content -->
         <div class="content">
@@ -101,9 +118,10 @@
                             </div>
                             <div class="card-body" style="padding-left: 12px;padding-top: 10px;padding-bottom: 0px">
                                 <a href="/user/form" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
-                                <button onclick="App.deleteMulti('/user/delete')" type="button" class="btn btn-default btn-sm"><i class="fa fa-trash"></i>删除</button>&nbsp;&nbsp;&nbsp;
+                                <button onclick="App.deleteMulti('/user/delete',null)" type="button" class="btn btn-default btn-sm"><i class="fa fa-trash"></i>删除</button>&nbsp;&nbsp;&nbsp;
                                 <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-download"></i>导入</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-upload"></i>导出</a>
+                                <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-upload"></i>导出</a>&nbsp;&nbsp;&nbsp;
+                                <button type="button" onclick="$('.content-search').css('display')=='none'?$('.content-search').show('fast'):$('.content-search').hide('fast')" class="btn btn-primary btn-sm"><i class="fa fa-search"></i>搜索</button>
                             </div>
 
 
@@ -129,30 +147,6 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-<%--                                    <c:forEach items="${tbUsers}" var="tbuser">--%>
-<%--                                        <tr>--%>
-<%--                                            <td>--%>
-<%--                                                <div class="icheck-primary d-inline">--%>
-<%--                                                    <input type="checkbox" class="check-box" id="${tbuser.id}">--%>
-<%--                                                    <label for="${tbuser.id}">--%>
-<%--                                                    </label>--%>
-<%--                                                </div>--%>
-<%--                                            </td>--%>
-<%--                                            <td>${tbuser.id}</td>--%>
-<%--                                            <td>${tbuser.username}</td>--%>
-<%--                                            <td>${tbuser.phone}</td>--%>
-<%--                                            <td>${tbuser.email}</td>--%>
-<%--                                            <td>--%>
-<%--                                                <fmt:formatDate value="${tbuser.updated}" pattern="yyyy-MM-dd HH:mm:ss" />--%>
-<%--                                            </td>--%>
-<%--                                            <td>--%>
-<%--                                                <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-search"></i>查看</a>--%>
-<%--                                                <a href="#" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>修改</a>--%>
-<%--                                                <a href="#" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>--%>
-<%--                                            </td>--%>
-<%--                                        </tr>--%>
-<%--                                    </c:forEach>--%>
-
 
                                     </tbody>
                                 </table>
@@ -185,6 +179,7 @@
 <jsp:include page="../includes/footer.jsp" />
 <sys:modal/>
 <script>
+    let dataTable;
     $(function () {
         const _columns = [
             {
@@ -203,14 +198,27 @@
             {
                 "data": function (row, type, val, meta) {
                     const detailUrl = "/user/detail?id=" + row.id;
+                    const id=row.id;
                     return '<button type="button" onclick="App.showDetail(\''+detailUrl+'\')" class="btn btn-default btn-sm"><i class="fa fa-search"></i>查看</button>\n' +
                         '<a href="/user/form?id=' + row.id + '" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>修改</a>\n' +
-                        '<a href="#" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>删除</a>';
+                        '<button onclick="App.deleteMulti(\'/user/delete\',\''+id+'\')" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>删除</button>';
                 }
             }
         ];
-        App.initDataTables("/user/page",_columns);
+        dataTable=App.initDataTables("/user/page",_columns);
     });
+    function search() {
+        const username = $("#username").val();
+        const email = $("#email").val();
+        const phone = $("#phone").val();
+        const param = {
+            "username": username,
+            "email": email,
+            "phone":phone
+        };
+        dataTable.settings()[0].ajax.data = param;
+        dataTable.ajax.reload();
+    }
 </script>
 </body>
 </html>

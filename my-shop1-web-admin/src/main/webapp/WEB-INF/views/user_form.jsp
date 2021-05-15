@@ -5,7 +5,7 @@
   Time: 15:25
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
@@ -63,8 +63,17 @@
                     <div class="card-header">
                         <h3 class="card-title">${tbUser.id==null?"新增":"编辑"}用户</h3>
                     </div>
+
+                    <c:if test="${baseResult!=null}">
+                        <div class="alert alert-${baseResult.status==200? "success":"danger"} alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                ${baseResult.message}
+                        </div>
+                    </c:if>
+
                     <!-- /.card-header -->
                      <form:form id="inputForm" cssClass="form-horizontal" action="/user/save" method="post" modelAttribute="tbUser">
+                         <form:hidden path="id"/>
                          <div class="card-body">
                              <div class="form-group row">
                                  <label for="email" class="col-sm-2 col-form-label">邮箱</label>
@@ -99,44 +108,6 @@
                          <!-- /.card-footer -->
                      </form:form>
                      <!-- form end -->
-
-<%--                        使用spring mvc表单标签库之前--%>
-                    <!-- form start -->
-<%--                    <form class="form-horizontal" action="/user/save" method="post">--%>
-<%--                        <div class="card-body">--%>
-<%--                            <div class="form-group row">--%>
-<%--                                <label for="inputEmail3" class="col-sm-2 col-form-label">邮箱</label>--%>
-<%--                                <div class="col-sm-10">--%>
-<%--                                    <input type="email" class="form-control" id="inputEmail3" name="email" placeholder="请输入邮箱地址">--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group row">--%>
-<%--                                <label for="inputPassword3" class="col-sm-2 col-form-label">密码</label>--%>
-<%--                                <div class="col-sm-10">--%>
-<%--                                    <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="请输入密码">--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group row">--%>
-<%--                                <label for="inputName" class="col-sm-2 col-form-label">姓名</label>--%>
-<%--                                <div class="col-sm-10">--%>
-<%--                                    <input type="text" class="form-control" id="inputName" name="username" placeholder="请输入用户的姓名">--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-group row">--%>
-<%--                                <label for="inputPhone" class="col-sm-2 col-form-label">手机</label>--%>
-<%--                                <div class="col-sm-10">--%>
-<%--                                    <input type="tel" class="form-control" id="inputPhone" name="phone" placeholder="请输入用户的手机号">--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <!-- /.card-body -->--%>
-<%--                        <div class="card-footer">--%>
-<%--                            <button type="submit" class="btn btn-info">提交</button>--%>
-<%--                            <button type="button" class="btn btn-default float-right" onclick="history.go(-1)">返回</button>--%>
-<%--                        </div>--%>
-<%--                        <!-- /.card-footer -->--%>
-<%--                    </form>--%>
-                        <!-- form end -->
                 </div>
                 <!-- /.card -->
 

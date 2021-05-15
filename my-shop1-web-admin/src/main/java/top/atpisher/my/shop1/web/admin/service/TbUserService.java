@@ -13,27 +13,36 @@ import java.util.List;
  * @Description: TODO
  */
 public interface TbUserService {
-    public List<TbUser> selectAll();
+    /**
+     * 查询用户全部信息
+     * @return
+     */
+    List<TbUser> selectAll();
 
-    public void insert(TbUser tbUser);
+    /**
+     * 插入一个用户
+     * @param tbUser
+     */
+    void insert(TbUser tbUser);
 
+    /**
+     * 根据id删除一个用户
+     * @param id
+     */
     void delete(Long id);
-
-    /*
-   通过id查询用户信息
-    */
+    /**
+     * 通过id查询用户信息
+     * @param id
+     * @return
+     */
     TbUser getById(Long id);
-    /*
-    更新
+
+    /**
+     * 更新
+     * @param tbUser
      */
     void update(TbUser tbUser);
 
-    /**
-     * 模糊查询用户名
-     * @param username
-     * @return
-     */
-    List<TbUser> selectByUsername(String username);
 
     /**
      * 登录验证
@@ -50,12 +59,6 @@ public interface TbUserService {
     BaseResult save(TbUser tbUser);
 
     /**
-     *
-     * @param tbUser
-     * @return
-     */
-    List<TbUser> search(TbUser tbUser);
-    /**
      * 批量删除
      * @param ids
      */
@@ -67,11 +70,11 @@ public interface TbUserService {
      * @param length
      * @return
      */
-    PageInfo<TbUser> page(int start, int length,int draw);
+    PageInfo<TbUser> page(int start, int length,int draw,TbUser tbUser);
 
     /**
      * 查询记录总条数
      * @return
      */
-    int count();
+    int count(TbUser tbUser);
 }

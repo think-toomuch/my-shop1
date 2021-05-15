@@ -17,6 +17,7 @@
         FROM
         tb_user AS a
     </select>
+
     <insert id="insert">
         INSERT INTO tb_user (
             id,
@@ -38,6 +39,7 @@
             #{updated}
         )
     </insert>
+
     <delete id="delete">
         DELETE FROM tb_user WHERE id = #{id}
     </delete>
@@ -56,14 +58,6 @@
         WHERE id = #{id}
     </update>
 
-    <select id="selectByUsername" resultType="TbUser">
-        SELECT
-        <include refid="tbUserColumns"/>
-        FROM
-        tb_user AS a
-        WHERE
-        a.username LIKE CONCAT ('%', #{username}, '%')
-    </select>
 
     <select id="getByEmail" resultType="TbUser">
         SELECT
@@ -71,24 +65,6 @@
         FROM
         tb_user AS a
         WHERE a.email=#{email}
-    </select>
-
-<!--    根据用户名或者邮箱或者手机号查找信息-->
-    <select id="search" resultType="TbUser">
-        select
-        <include refid="tbUserColumns"></include>
-        from tb_user as a
-        <where>
-            <if test="username!=null and username!=''">
-                and a.username like concat('%',#{username},'%')
-            </if>
-            <if test="phone!=null and phone!=''">
-                and a.phone like concat('%',#{phone},'%')
-            </if>
-            <if test="email!=null and email!=''">
-                and a.email like concat('%',#{email},'%')
-            </if>
-        </where>
     </select>
 
     <select id="getById" resultType="TbUser" parameterType="java.lang.Long">
@@ -107,10 +83,34 @@
         SELECT
         <include refid="tbUserColumns"/>
         FROM
-        tb_user AS a LIMIT #{start},#{length}
+        tb_user AS a
+        <where>
+            <if test="tbUser.username!=null and tbUser.username!=''">
+                and a.username like concat('%',#{tbUser.username},'%')
+            </if>
+            <if test="tbUser.phone!=null and tbUser.phone!=''">
+                and a.phone like concat('%',#{tbUser.phone},'%')
+            </if>
+            <if test="tbUser.email!=null and tbUser.email!=''">
+                and a.email like concat('%',#{tbUser.email},'%')
+            </if>
+        </where>
+        LIMIT #{start},#{length}
     </select>
-<!--    查询总数-->
+<!--    查询总条数-->
     <select id="count" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM tb_user;
+        SELECT COUNT(*) FROM
+        tb_user as a
+        <where>
+            <if test="username!=null and username!=''">
+                and a.username like concat('%',#{username},'%')
+            </if>
+            <if test="phone!=null and phone!=''">
+                and a.phone like concat('%',#{phone},'%')
+            </if>
+            <if test="email!=null and email!=''">
+                and a.email like concat('%',#{email},'%')
+            </if>
+        </where>
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package top.atpisher.my.shop1.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import top.atpisher.my.shop1.commons.persistence.BaseEntity;
 
 import java.io.Serializable;
@@ -24,7 +25,7 @@ public class TbUser extends BaseEntity {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
