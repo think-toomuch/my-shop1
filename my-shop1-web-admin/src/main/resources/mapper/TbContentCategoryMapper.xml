@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.atpisher.my.shop1.web.admin.dao.TbContentCategoryDao">
+    <sql id="tbContentCategory">
+        a.id,
+        a.parent_id,
+        a.name,
+        a.status,
+        a.sort_order,
+        a.is_parent,
+        a.created,
+        a.updated
+    </sql>
+<select id="selectAll" resultType="TbContentCategory">
+    SELECT <include refid="tbContentCategory"/>
+    FROM tb_content_category AS a
+    ORDER BY a.parent_id ASC,a.sort_order ASC,a.is_parent DESC;
+</select>
+</mapper>
