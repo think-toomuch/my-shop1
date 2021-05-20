@@ -16,4 +16,11 @@ import java.util.List;
 @Mapper
 public interface TbContentCategoryDao {
     List<TbContentCategory> selectAll();
+
+    /**
+     *根据父级节点类目查询所有子节点
+     * @param pid
+     * @return
+     */
+    List<TbContentCategory> selectByPid(Long pid);
 }

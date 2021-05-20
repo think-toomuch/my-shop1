@@ -16,3 +16,5 @@ maven模块化开发结构搭建完成，ssm框架搭建完成。登录
 删除冗余代码，添加注释，理清逻辑，准备开始下一个功能
 5.16
 搭建内容管理基本框架结构，采用jquery的treetable
+5.20
+引入lombok插件，加入Spring Validation JSR-303验证  

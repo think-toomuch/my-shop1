@@ -85,7 +85,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/content/list" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>内容列表</p>
                             </a>

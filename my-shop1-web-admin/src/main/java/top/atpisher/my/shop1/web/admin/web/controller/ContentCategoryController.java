@@ -3,6 +3,7 @@ package top.atpisher.my.shop1.web.admin.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +34,15 @@ public class ContentCategoryController {
         return "content_category_list";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "tree/data",method = RequestMethod.POST)
+    public List<TbContentCategory> treeData(Long id){
+        if(id==null){
+            id=0L;
+        }
+        return tbContentCategoryService.selectByPid(id);
+    }
+
     /**
      * 排序
      * @param sourceList 数据源集合
@@ -44,7 +54,7 @@ public class ContentCategoryController {
             if(tbContentCategory.getParentId().equals(parentId)){
                 targetList.add(tbContentCategory);
                 //判断有没有子节点，有的话继续追加
-                if(tbContentCategory.getParent()){
+                if(tbContentCategory.getIsParent()){
                     for(TbContentCategory contentCategory:sourceList){
                         if(contentCategory.getParentId().equals(tbContentCategory.getId())){
                             softList(sourceList,targetList,tbContentCategory.getId());
